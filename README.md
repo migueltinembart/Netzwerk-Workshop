@@ -1,20 +1,17 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Netzwerk Workshop
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Voraussetzungen
+Um mit dem Workshop zu starten sind kleine aber doch wichtige Tools nötig, damit deine Workshoperfahrung so einfach wie möglich ist.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+- Git
+- Texteditor deiner Wahl
+- ssh client (z.B putty)
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Anleitung
+Alle Anleitungen für jegliche Aufgaben im Workshop findest du in den jeweiligen Kapiteln. Die Anleitungen für die jeweiligen benötigten Tools findest du schliesslich unter [00_Voraussetzungen]()
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Aufbau des Workshops
+Für den gesamten Workshop sind mehrere Kapitel in Ordner gegliedert. In diesen Kapiteln findest du dann schlussendlich .md files. Falls du nicht weisst was .md files sind siehe [Markdown Guide](https://www.markdownguide.org/). Dort sind dann alle Workshopunterlagen enthalten wie Dokumentation, Anleitungen, Literarische Dokumente fürs Verständnis, mögliche Konfigurationen und mehr. 
+
+### Wieso Markdown?
+Für technische Dokumentation zu einem Git Projekt wird in der Regel Markdown verwendet, da sie sehr leicht sind und mit wenigen Mitteln einfache und überschaubare Formattierungen haben, welche im Web einfach verträglich sind. 
