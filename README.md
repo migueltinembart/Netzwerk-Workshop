@@ -8,7 +8,7 @@ Um mit dem Workshop zu starten sind kleine aber doch wichtige Tools nötig, dami
 - ssh client (z.B putty)
 
 ## Anleitung
-Alle Anleitungen für jegliche Aufgaben im Workshop findest du in den jeweiligen Kapiteln. Die Anleitungen für die jeweiligen benötigten Tools findest du schliesslich unter [00_Voraussetzungen]()
+Alle Anleitungen für jegliche Aufgaben im Workshop findest du in den jeweiligen Kapiteln. Die Anleitungen für die jeweiligen benötigten Tools findest du schliesslich unter [00_Voraussetzungen](https://dev.azure.com/Rebsamen-Group/_git/Netzwerk-Workshop?path=/00_Voraussetzungen)
 
 ## Aufbau des Workshops
 Für den gesamten Workshop sind mehrere Kapitel in Ordner gegliedert. In diesen Kapiteln findest du dann schlussendlich .md files. Falls du nicht weisst was .md files sind siehe [Markdown Guide](https://www.markdownguide.org/). Dort sind dann alle Workshopunterlagen enthalten wie Dokumentation, Anleitungen, Literarische Dokumente fürs Verständnis, mögliche Konfigurationen und mehr. 
