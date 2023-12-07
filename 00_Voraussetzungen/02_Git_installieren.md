@@ -15,7 +15,7 @@ Git wird dich während der Installation einige Fragen stellen welche am einfachs
 
 Folgende Punkte müssen während der Installation beachtet werden somit beachtet werden:
 
-- Der Standard Code-Editor kannst du auf deinen preferierten Editor setzen. Falls du vorhin einen neuen Code Editor im Kapitel [Text_Editor_installieren]() installiert hast, kannst du dieses gleich als Standard hier einstellen
+- Der Standard Code-Editor kannst du auf deinen preferierten Editor setzen. Falls du vorhin einen neuen Code Editor im Kapitel [Text_Editor_installieren](https://dev.azure.com/Rebsamen-Group/_git/Netzwerk-Workshop?path=/00_Voraussetzungen/01_Text-Editor_installieren.md) installiert hast, kannst du dieses gleich als Standard hier einstellen
 - Setze deinen initial branch für neue Projekte auf **main**
 - Lasse die Einstellungen für den GIT Pfad so wie er ist und ändere dor nichts, sonst läufst du Gefahr dass andere Git Tools deine Git Installation nicht finden kann.
 - Verwende die standard openSSH und openSSL Bibliotheken von Git
