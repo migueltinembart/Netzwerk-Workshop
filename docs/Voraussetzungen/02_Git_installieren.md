@@ -1,5 +1,5 @@
 # Git instillieren
-Git ist ein Versionierungstool, ähnlich SVN, welches den Fokus auf lokale Entwicklung und Kontrolle von textbasierten Files bietet. Git ist heute das meistverwendete Versionierungstool das es gibt. Git darf nicht mit Github verwechselt werden. Github ist ein Git Repository Provider und falls es dir nicht aufgefallen ist, liest du gerade dieses Dokument auf Azure DevOps, einem Konkurenzprodukt zu Github. Damit du im Workshop auf deiner lokalen Maschine mit den Tools arbeiten kannst die in diesem Workshop ersichtlich sind, wirst du somit Git brauchen um eine Kopie dieses Git Repositories auf deinen Rechner zu verwalten. Also starten wir mal mit der Installation:
+Git ist ein Versionierungstool, ähnlich wie SVN, welches den Fokus auf lokale Entwicklung und Kontrolle von textbasierten Files bietet. Git ist heute das meistverwendete Versionierungstool das es gibt. Git darf nicht mit Github verwechselt werden. Github ist ein Git Repository Provider und falls es dir nicht aufgefallen ist, liest du gerade dieses Dokument auf Azure DevOps, einem Konkurenzprodukt zu Github. Damit du im Workshop auf deiner lokalen Maschine mit den Tools arbeiten kannst die in diesem Workshop ersichtlich sind, wirst du somit Git brauchen um eine Kopie dieses Git Repositories auf deinen Rechner zu verwalten. Also starten wir mal mit der Installation:
 
 ## Installation in Windows
 Für windows kann Git über 2 Wege installiert werden. Je nach Arbeitsumgebung lohnt sich für dich die eine oder andere Installation und und die Vor und Nachteile werden hier beschrieben
@@ -52,4 +52,4 @@ Falls du Git und seine Essenz lernen möchtest, biete ich dir ein paar Referenzs
 
 - [Learn Git Branching](https://learngitbranching.js.org/) interaktives Tutorial
 - [CodeCademy](https://www.codecademy.com/learn/learn-git) ist gratis und anfängerfreundlich
-- Du kommst bei mir vorbei und fragst ihn nach seinem Buch über Git
+- Du kommst bei Miguel vorbei und fragst ihn nach seinem Buch über Git

@@ -1,3 +1,8 @@
 site_name: "Netzwerk Workshop"
 theme: material
 dev_addr: "0.0.0.0:8080"
+site_url: https://netzwerk-workshop.rebsamen.net
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
