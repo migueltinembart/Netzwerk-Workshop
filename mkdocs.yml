@@ -3,15 +3,17 @@ theme: material
 dev_addr: "0.0.0.0:8080"
 site_url: https://netzwerk-workshop.rebsamen.net
 
-plugins: 
+plugins:
   - search
-
-
+  - callouts
 
 markdown_extensions:
+  - nl2br
+  - admonition
   - attr_list
   - md_in_html
   - pymdownx.critic
+  - pymdownx.details
   - pymdownx.caret
   - pymdownx.keys
   - pymdownx.mark
