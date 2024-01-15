@@ -12,4 +12,4 @@ Für technische Dokumentation zu einem Git Projekt wird in der Regel Markdown ve
 
 # Quickstart
 
-Um dein Erlebnis im Workshop möglichst einfach zu machen, schalgen wir vor du startest gleich bei [00_Voraussetzungen](/Voraussetzungen)
+Um dein Erlebnis im Workshop möglichst einfach zu machen, schalgen wir vor du startest gleich bei [00_Voraussetzungen](./00_Voraussetzungen/index.md)

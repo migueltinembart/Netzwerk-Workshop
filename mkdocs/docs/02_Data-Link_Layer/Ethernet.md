@@ -9,7 +9,7 @@ Ethernet beschreibt mehrere Verkabelungs- und Signalisierungsvarianten und defin
 
 ## Ethernet Frame
 
-Ethernet arbeitet auf der 2 OSI-Layer Schicht und verarbeitet üblicherweise Frames. Ethernet Frames sind die letzte logische Einheit bevor diese Daten dann schlussendlich zu Bit verarbeitet wird beim Senden. beim Empfangen werden die Bits wieder zu einem Frame zusammengesetzt. Ein Frame besteht aus einem sogenannten Header, die Kopfzeile eines Frames und den eigentlichen zugrundeliegenden Daten. Am Ende des Frames wird noch eine CRC Checksume angereiht und um sicherzustellen, dass keine Fehler bei der Übertragung passiert sind. Wir gehen in [CRC Checksumme](/02_Data-Link_Layer/Ethernet/#crc-checksumme) näher darauf ein. 
+Ethernet arbeitet auf der 2 OSI-Layer Schicht und verarbeitet üblicherweise Frames. Ethernet Frames sind die letzte logische Einheit bevor diese Daten dann schlussendlich zu Bit verarbeitet wird beim Senden. beim Empfangen werden die Bits wieder zu einem Frame zusammengesetzt. Ein Frame besteht aus einem sogenannten Header, die Kopfzeile eines Frames und den eigentlichen zugrundeliegenden Daten. Am Ende des Frames wird noch eine CRC Checksume angereiht und um sicherzustellen, dass keine Fehler bei der Übertragung passiert sind. Wir gehen in [CRC Checksumme](#crc-checksumme) näher darauf ein. 
 
 ![Ethernet Frame](https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Ethernet_Type_II_Frame_format.svg/700px-Ethernet_Type_II_Frame_format.svg.png)
 
@@ -37,4 +37,7 @@ Daten sind in diesem Fall das IP-Paket. Das Ethernet-Frame befasst sich nicht mi
 
 ### CRC Checksumme
 
-Am Ende nach den Daten wird die Quersumme der Daten für die Checksumme ausgerechnet. Falls sich and den darunterliegenden Daten während der Übertragung etwas verändert hätte, würde die Neuberechnung nicht derselben Quersumme entsprechen und auf einen Fehler bei der Übertragung hindeuten. So kann das Ethernetprotokoll eine Neuübertragung des Frames anfragen und sicherstellen, dass alle Frames eindeutig übertragen werden.
+Am Ende nach den Daten wird die Quersumme der Daten für die Checksumme ausgerechnet. Falls sich and den darunterliegenden Daten während der Übertragung etwas verändert hätte, würde die Neuberechnung nicht derselben Quersumme entsprechen und auf einen Fehler bei der Übertragung hindeuten. So kann das Ethernetprotokoll eine Neuübertragung des Frames anfragen und sicherstellen, dass alle Frames eindeutig übertragen werden. Dies ist eine leichte Erklärung auf eine komplexe Lösung von CRC-Checksummen. 
+
+> [!NOTE]- Trivia
+> Im hintergrund läuft da noch mehr ab. Falls du mehr wissen möchtest kannst du gerne [hier](https://de.wikipedia.org/wiki/Zyklische_Redundanzpr%C3%BCfung) die bessere Erklärung lesen.

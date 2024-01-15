@@ -5,7 +5,7 @@ Der Data-Link Layer ist die zweite Schicht im OSI-Modell und ist verantwortlich 
 - Logical Link Control (LLC) und Media Access Control (MAC).
 - Die LLC-Schicht ist verantwortlich für die Fehlerkontrolle, Flusskontrolle und Rahmen-Synchronisation.
 
-Zusammen bieten beide Subschichten das Fundament für das Ethernet Protokol und werden im Kapitel [Ethernet](/02_Data-Link-Layer/Ethernet)
+Zusammen bieten beide Subschichten das Fundament für das Ethernet Protokol und werden im Kapitel [Ethernet](../02_Data-Link_Layer/Ethernet.md)
 
 ## Mac Schicht
 
