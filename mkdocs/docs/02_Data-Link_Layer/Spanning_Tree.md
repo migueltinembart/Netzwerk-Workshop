@@ -74,7 +74,7 @@ Dem designated Port ist es erlaubt Daten mit anderen Switches auszutauschen Fram
 
 ##### Root Port
 
-Ein Root Port ist der Anschluss welches in Richtung einer Root Bridge geführt ist. Ein Root Port ist somit immer mit einem Designated Port verbunden.
+Ein Root Port ist der Anschluss welches in Richtung einer Root Bridge geführt ist. Ein Root Port ist somit immer mit einem Designated Port verbunden. Der Zustand eines Root Ports startet immer in einem Listening State
 
 ##### Blocked Port
 
@@ -84,7 +84,7 @@ Ein Port welches nach der Spanning Tree Toplogie nicht für eine Verbindung vorg
 
 In einem Spanning Tree sind potenzielle Schleifen nicht gleich komplett ausgeschaltet. Sie übermitteln aber keine Nutzdaten wie Ethernet Frames. Dabei tauschen alle Ports weiterhin BPDUs, welche den aktuellen Zustand von benachbarten Switches anhand von Statusveränderungen verstehen kann. Ein Port kann folgende Zustände haben:
 
-| Zustand des Ports | Beschr3eibung                                                                 |
+| Zustand des Ports | Beschreibung                                                                  |
 | ----------------- | ----------------------------------------------------------------------------- |
 | Disabled          | Verwirft Frames, lernt keine Adressen, empfängt und verarbeitet keine BPDUs   |
 | Blocking          | Verwirft Frames, lernt keine Adressen, empfängt und verarbeitet BPDUs         |
@@ -92,6 +92,18 @@ In einem Spanning Tree sind potenzielle Schleifen nicht gleich komplett ausgesch
 | Learning          | Verwirft Frames, lernt Adressen, empfängt, verarbeitet und sendet BPDUs       |
 | Forwarding        | Leitet Frames weiter, lernt Adressen, empfängt, verarbeitet und sendet BPDUs  |
 
-Die Zustände _Blocking_, _Listening_, _Learning_ sind Zustände von blocked Ports. Root und Designated Ports sind immer im Forwarding-Zustand. Ports welche inaktiv sind in der Regel blocking. Wird ein Port aktiv, durchläuft dieser Port alle Zustände bis zum Forwarding Zustand, Wird aber ein Loop erkannt bleibt dieser Port automatisch im Blocking Zustand und empfängt nur noch BPDUs zur Erkennung von Änderungen an der Konstellation.
+Die Zustände _Blocking_, _Listening_, _Learning_ sind Zustände von blocked Ports. Ports welche inaktiv sind in der Regel blocking. Wird ein Port aktiv, durchläuft dieser Port alle Zustände bis zum Forwarding Zustand, Wird aber ein Loop erkannt bleibt dieser Port automatisch im _Blocking_ Zustand und empfängt nur noch BPDUs zur Erkennung von Änderungen an der Konstellation.
 
-## Ablauf von spanning Tree
+## Ablauf von Spanning Tree Portstatuswechsel in Betrieb
+
+Es werden 2 Szenarien erklärt um die Wechsel der Zustände verstehen zu können und somit feststellen zu können wie Spanning Tree funktioniert.
+
+### Szenario 1: Netzwerkgerät wird in einen Switch eingesteckt
+
+Wenn ein Netzwerkgerät an einen Switch mit Spanning Tree geknüpft wird, durchläuft der Port die oben beschriebenenen Zustände. Der Port startet von Anfang an im _Blocking_ State und versucht BPDUs zu empfangen, werden als erstes keine BPDUs empfangen, versucht der Port in den _Listening_ State überzugehen und sendet eigene BPDUs mit Feldern Priorität und Bridge ID. Falls auch dann keine Antwort in Form von BPDUs zurückkommt geht der Port in den _Learning_ State über und empfängt die Mac-Adresse des Geräts und bei Erfolg wird der Port in den Forwarding Zustand gehoben. Das Endgerät kann nun im Netzwerk kommunizieren und Broadcasts verschicken.
+
+### Szenario 2: Netzwerkswitch wird an einen anderen Switch eingesteckt
+
+Wenn 2 mit Spanning Tree konfigurierten Switches miteinander verbunden ändert sich die ganze Spanning Tree von alleine und durchläuft mehrere Schritte um den Spanning Tree aufrecht zu halten.
+
+Beide Switches nehmen zuerst an sie seien die Root Bridge solange bis sie miteinander verbunden werden. Bei beiden Switches starten die entsprechenden Ports im _Blocking_ Zustand und danach in den Listening Zustand. Nun übertragen beide Switches ihre Bridge ID und können nun anhand des [oben](#root-bridge) gennanten Verfahrens ausmachen welcher Switch nun die Root Bridge ist. Nachdem die Root Bridge auserwählt wurde, wird automatisch der Port an der Root Bridge zu einem Designated Port und der Port der nicht-Root Bridge zu einem Root Port. 

@@ -2,7 +2,7 @@
 
 Lichtwellenleiter, auch bekannt als Glasfaserkabel, sind eine Schlüsseltechnologie in modernen Kommunikationsnetzwerken. Sie verwenden Licht zur Übertragung von Daten und sind in zwei Haupttypen unterteilt: Single-Mode und Multi-Mode.
 
-### Aufbau von Lichtwellenleitern
+## Aufbau von Lichtwellenleitern
 
 ![Single-mode Aufbau](https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Singlemode_fibre_structure.svg/640px-Singlemode_fibre_structure.svg.png){align=right width=300}
 
@@ -17,7 +17,7 @@ Ein Lichtwellenleiter besteht aus mehreren Schichten:
 4. Außenmantel (Jacket): Dies ist die äußere Schicht des Lichtwellenleiters. Sie schützt vor Umwelteinflüssen wie Feuchtigkeit, Chemikalien und physischen Schäden.
 
 
-## Single-Mode
+### Single-Mode
 
 - Vorteile: Sie können Daten über sehr lange Distanzen (mehrere Kilometer) übertragen, da sie weniger Signalverlust und Dispersion aufweisen. Sie sind ideal für Telekommunikationsnetze und Datenzentren mit mehreren Standorten.
 - Nachteile: Sie sind teurer in der Anschaffung und Installation. Außerdem benötigen sie spezielle Laser-Sender, die teurer sind als die LED-Sender, die in Multi-Mode Kabeln verwendet werden.
@@ -34,7 +34,7 @@ In einer Single-Mode Lichtwellenleiter (LWL) wird das Licht zur Signalübertragu
 
 Es ist wichtig zu beachten, dass Single-Mode LWL aufgrund ihrer geringen Kerngröße und der Verwendung von Lasern eine höhere Bandbreite und eine geringere Signalverzerrung aufweisen als Multi-Mode LWL. Daher können sie Daten über sehr lange Distanzen übertragen.
 
-## Multi-Mode
+### Multi-Mode
 
 - Vorteile: Sie sind kostengünstiger in der Anschaffung und Installation. Sie verwenden LED-Sender, die billiger und einfacher zu handhaben sind. Sie sind ideal für kurze Distanzen, wie z.B. innerhalb eines Gebäudes oder Campus.
 - Nachteile: Sie können Daten nur über kurze Distanzen (bis zu ein paar Kilometer) übertragen, da sie mehr Signalverlust und Dispersion aufweisen. Sie sind nicht geeignet für Anwendungen, die eine Übertragung über lange Distanzen erfordern.

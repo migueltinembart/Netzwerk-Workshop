@@ -1,6 +1,6 @@
 site_name: "Netzwerk Workshop"
 theme: material
-dev_addr: "127.0.0.1:8080"
+dev_addr: "127.0.0.1:8082"
 
 site_url: https://netzwerk-workshop.rebsamen.net
 
