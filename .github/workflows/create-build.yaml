@@ -30,7 +30,7 @@ jobs:
       - name: Push to Release
         uses: s0/git-publish-subdir-action@develop
         env:
-          REPO: git@github.com:migueltinembart/Netwerk-Workshop.git
+          REPO: self
           BRANCH: release
           FOLDER: mkdocs/site
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
