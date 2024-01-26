@@ -1,6 +1,6 @@
 # Putty installieren
 
-Putty zu installieren ist genauso einfach wie die Installation eines Text-Editors. Lade den Installer (https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.79-installer.msi)[hier] herunter und installiere durch bestätigen jedes Kontext-Menus bi sPutty installiert ist.
+Putty zu installieren ist genauso einfach wie die Installation eines Text-Editors. Lade den Installer [hier](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.79-installer.msi) herunter und installiere durch bestätigen jedes Kontext-Menus bi sPutty installiert ist.
 
 ## Was ist Putty
 
@@ -12,7 +12,7 @@ Die heutigen modernen Terminalemulatoren wie Putty können über verschiedene Pr
 
 ### Wieso Putty und nicht das neue Windows Terminal
 
-Das neue Windows Terminal besitzt einen SSH Client, doch basiert dieser auf SSH2.0 und ist mit neuen Verschlüsselungsformaten ausgestattet. Somit ist dieser Terminalemulator für die meisten heutzutagsverwenden Fälle eine valide Ablöse für Putty. Doch ältere Geräte welche vorallem auf ältere Verschlüsselungstechnologien wie diffie-hellman und weiteres angewiesen sind, werden durch SSH2.0 nicht mehr unterstützt. Dies natürlich aus dem Grund der Sicherheit, da solche Protokolle nicht mehr in heutigen produktiven Endgeräten eingesetzt werden. Leider können wir das Problem, bei vielen Kunden nicht durch einen Systemaustausch einfach so lösen und die meisten Systeme welche über SSH erreichbar sind, sind in der Regel nicht im Internet erreichbar.
+Das neue Windows Terminal besitzt einen SSH Client, doch basiert dieser auf SSH2.0 und ist mit neuen Verschlüsselungsformaten ausgestattet. Somit ist dieser Terminalemulator für die meisten herkömmlichen Fälle eine valide Ablöse für Putty. Doch ältere Geräte welche vorallem auf ältere Verschlüsselungstechnologien wie diffie-hellman und weiteres angewiesen sind, werden durch SSH2.0 nicht mehr unterstützt. Dies natürlich aus dem Grund der Sicherheit, da solche Protokolle nicht mehr in heutigen produktiven Endgeräten eingesetzt werden. Leider können wir das Problem, bei vielen Kunden nicht durch einen Systemaustausch einfach so lösen und die meisten Systeme welche über SSH erreichbar sind, sind in der Regel nicht im Internet erreichbar. Wer sehr gewagt ist, kann gerne alle alten Protokolle über SSH2.0 mit Optionen und dem Austausch von protokollen bedienen, wird dabei während eines Servicefalls nicht gerade effizient sein.
 
 Geräte welche evtl. mit alten SSH Verschlüsselungsprotokollen arbeiten sind:
 
@@ -21,6 +21,8 @@ Geräte welche evtl. mit alten SSH Verschlüsselungsprotokollen arbeiten sind:
 - Firewalls
 - Access Points
 - Ältere Linux Maschinnen welche noch keinen Support für SSH 2.0 besitzen
+
+Die meisten heutzutags verkauften Endgeräte mit SSH-Support unterstützen unterdessen SSH2.0 mit neueren Standards, doch man trifft in der Arbeitswelt auf so manche Implementationen von SSH und kann mit Putty die Kopfschmerzen für manchen Techniker ersparen.
 
 # Verwenden von Putty
 
