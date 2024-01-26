@@ -1,0 +1,1245 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://netzwerk-workshop.rebsamen.net/02_Data-Link_Layer/Ethernet/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../Kapselung/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.5">
+    
+    
+      
+        <title>Ethernet - Netzwerk Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ethernet" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Netzwerk Workshop" class="md-header__button md-logo" aria-label="Netzwerk Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Netzwerk Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ethernet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Netzwerk Workshop" class="md-nav__button md-logo" aria-label="Netzwerk Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Netzwerk Workshop
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Willkommen beim Netzwerk-Workshop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    00 Voraussetzungen
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            00 Voraussetzungen
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/01_Text-Editor_installieren/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text-Editor installieren
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/02_Git_installieren/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git instillieren
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/03_Putty_installieren/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Putty installieren
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    01 Physical Layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            01 Physical Layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Einleitung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Kupfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kupferübertragungsmedien
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/LWL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LWL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Luft%C3%BCbertragungstechnologien/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Luftübertragungstechnologien
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Netzwerkadapter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netzwerkadapter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Power_over_Ethernet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Power over Ethernet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    02 Data Link Layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            02 Data Link Layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Einleitung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ethernet
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Ethernet
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethernet-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethernet Frame
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Headers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Headers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#destination-mac-adresse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Destination MAC Adresse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-mac-adresse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source MAC Adresse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethertype" class="md-nav__link">
+    <span class="md-ellipsis">
+      EtherType
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#daten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Daten
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crc-checksumme" class="md-nav__link">
+    <span class="md-ellipsis">
+      CRC Checksumme
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bilden-eines-netzwerks-auf-basis-von-ethernet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bilden eines Netzwerks auf Basis von Ethernet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bilden eines Netzwerks auf Basis von Ethernet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#was-ist-ein-broadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Was ist ein Broadcast
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Was ist ein Broadcast">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wieso-benotigt-man-broadcast-anfragen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wieso benötigt man Broadcast-Anfragen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#was-wenn-ich-meine-broadcast-domane-aufteilen-mochte" class="md-nav__link">
+    <span class="md-ellipsis">
+      Was wenn ich meine Broadcast Domäne aufteilen möchte?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Was wenn ich meine Broadcast Domäne aufteilen möchte?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#welche-gerate-unterstutzen-vlans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welche Geräte unterstützen VLANs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kapselung/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kapselung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Netzwerkger%C3%A4te/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netzwerkgeräte
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QoS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality of Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spanning_Tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spanning Tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WIFI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WIFI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    03 Network Layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            03 Network Layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_Network_Layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network Layer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_Network_Layer/Internet_Protocol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internet Protocol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethernet-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethernet Frame
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Headers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Headers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#destination-mac-adresse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Destination MAC Adresse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-mac-adresse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source MAC Adresse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethertype" class="md-nav__link">
+    <span class="md-ellipsis">
+      EtherType
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#daten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Daten
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crc-checksumme" class="md-nav__link">
+    <span class="md-ellipsis">
+      CRC Checksumme
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bilden-eines-netzwerks-auf-basis-von-ethernet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bilden eines Netzwerks auf Basis von Ethernet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bilden eines Netzwerks auf Basis von Ethernet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#was-ist-ein-broadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Was ist ein Broadcast
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Was ist ein Broadcast">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wieso-benotigt-man-broadcast-anfragen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wieso benötigt man Broadcast-Anfragen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#was-wenn-ich-meine-broadcast-domane-aufteilen-mochte" class="md-nav__link">
+    <span class="md-ellipsis">
+      Was wenn ich meine Broadcast Domäne aufteilen möchte?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Was wenn ich meine Broadcast Domäne aufteilen möchte?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#welche-gerate-unterstutzen-vlans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welche Geräte unterstützen VLANs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ethernet">Ethernet</h1>
+<p>Das Ethernet Protokol ist eine Familie von kabelgebundenen Technologien und wurde 1980 unter dem IEEE Standard IEEE802.3 festgelegt. Ethernet wurde über die Jahre immer weiterentwickelt um schnellere Übertragungen zu ermöglichen, längere Distanzen zu überbrücken um das darunterliegenden Twisted Pair Kabel besser ausnützen zu können oder einfachere Mehrverbindungen zuzulassen. In der Zeit ist aber Ethernet immer abwärtskompatibel zu deren älteren Definitionen gehalten worden.</p>
+<p>Das originale <a href="https://en.wikipedia.org/wiki/10BASE5">10BASE5</a> wurde damals mit dicken Koaxialkabeln betrieben und nach kurzer Zeit durch Twisted Pair und Optischen Kabeln ersetzt. In den letzten Jahren wurde Ethernet soweit entwickelt, dass bis zu 400Gbit/s übertragen werden können.</p>
+<p>Ethernet beschreibt mehrere Verkabelungs- und Signalisierungsvarianten und definiert sich über das OSI-Model über die ersten 2 Schichten, vorallem in der MAC-Subschciht auf Layer-2.</p>
+<h2 id="ethernet-frame">Ethernet Frame</h2>
+<p>Ethernet arbeitet auf der 2 OSI-Layer Schicht und verarbeitet üblicherweise Frames. Ethernet Frames sind die letzte logische Einheit bevor diese Daten dann schlussendlich zu Bit verarbeitet wird beim Senden. beim Empfangen werden die Bits wieder zu einem Frame zusammengesetzt. Ein Frame besteht aus einem sogenannten Header, die Kopfzeile eines Frames und den eigentlichen zugrundeliegenden Daten. Am Ende des Frames wird noch eine CRC Checksume angereiht und um sicherzustellen, dass keine Fehler bei der Übertragung passiert sind. Wir gehen in <a href="#crc-checksumme">CRC Checksumme</a> näher darauf ein.</p>
+<p><img alt="Ethernet Frame" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Ethernet_Type_II_Frame_format.svg/700px-Ethernet_Type_II_Frame_format.svg.png" /></p>
+<h2 id="headers">Headers</h2>
+<p>Headers sind die Kopfzeile eines jeden Ethernet Frames. Darin stehen alle Addressinformationen die nötig sind um einem Switch zu sagen von wo und wohin ein Frame übertragen werden sollte. Folgende Einträge im Header definieren hauptsächlich die Hauptbestandteile des Headers</p>
+<h3 id="destination-mac-adresse">Destination MAC Adresse</h3>
+<p>Dieses Feld hält den Wert der Mac-Adresse des Empfängergeräts bei sich.</p>
+<h3 id="source-mac-adresse">Source MAC Adresse</h3>
+<p>Dieses Feld hält den Wert der Mac-Adresse des Absendergeräts bei sich.</p>
+<h3 id="ethertype">EtherType</h3>
+<p>Beschreibt mit einem vordefinierten Wert den Inhalt des überliegenden Protokols auf Layer 3. In einem reinen TCP/IP IP-Netzwerk wird dass meistens IPv4 sein. Der Wert für IPv4 in einem EtherType Feld wäre zum Beispiel 0x0800.</p>
+<p>Das Ethertype Feld dient dazu, das nächste übergeordnete Protokoll zu beschreiben, damit das ausgekapselte Paket an die richtige Protokolverarbeitung gelangt. Im Falle von IPv4 wird das ausgekapselte IP-Paket an die ÎP-Verarbeitungsschicht im Rechner weiterübergeben.</p>
+<h3 id="daten">Daten</h3>
+<p>Daten sind in diesem Fall das IP-Paket. Das Ethernet-Frame befasst sich nicht mit den darüberliegenden Daten. In den meisten Fällen sind das IP-Pakete, kann aber auch jedes andere Layer-3 Protokol sein.</p>
+<h3 id="crc-checksumme">CRC Checksumme</h3>
+<p>Am Ende nach den Daten wird die Quersumme der Daten für die Checksumme ausgerechnet. Falls sich and den darunterliegenden Daten während der Übertragung etwas verändert hätte, würde die Neuberechnung nicht derselben Quersumme entsprechen und auf einen Fehler bei der Übertragung hindeuten. So kann das Ethernetprotokoll eine Neuübertragung des Frames anfragen und sicherstellen, dass alle Frames eindeutig übertragen werden. Dies ist eine leichte Erklärung auf eine komplexe Lösung von CRC-Checksummen.</p>
+<details class="note">
+<summary>Trivia</summary>
+<p>Im hintergrund läuft da noch mehr ab. Falls du mehr wissen möchtest kannst du gerne <a href="https://de.wikipedia.org/wiki/Zyklische_Redundanzpr%C3%BCfung">hier</a> die bessere Erklärung lesen.</p>
+</details>
+<h2 id="bilden-eines-netzwerks-auf-basis-von-ethernet">Bilden eines Netzwerks auf Basis von Ethernet</h2>
+<p>Ein einfaches Ethernet Netzwerk kann am einfachsten mit einem einfachen Switch erstellt. Dabei benötigt es noch keinen Router oder sonstige Komponenten. Dabei bildet sich automatisch über dieses kleine Netzwerk eine Broadcast Domain. Die Broadcast Domain ist ein einfacher Begriff für ein Netzwerk über das alle Komponenten über jeden Port an diesem Switch kommunizieren können und Broadcasts versendet werden. Somit kann man davon ausgehen, dass wenn ein Broadcast von einem Gerät versendet wird, dass dieses an jedem Port ausgesandt wird. Nun nimmt man einen weiteren Switch dazu und verbindet dieses mit dem bestehenden Switch. Nun auch gehört dieser Switch derselben Broadcast domain an und Broadcast Pakete können dort empfangen und wieder an alle Ports weitergeleitet werden. Gratuliere du hast ein <a href="https://de.wikipedia.org/wiki/Local_Area_Network">LAN</a> erstellt.</p>
+<h3 id="was-ist-ein-broadcast">Was ist ein Broadcast</h3>
+<p>Broadcast definiert den Versandt einer Information an alle in einem Netzwerk. Im Falle von Ethernet ist dies eine wichtige Art sich im Netzwerk auszutauschen und vorallem wenn man auf Layer 3 wichtige Operationen durchführen sogar essenziel. Denn ein Broadcast ermöglicht gleich von Anfang an Möglichkeiten um den Standort und weitere Informationen zu bestimmen.</p>
+<p>Ein Broadcast im Ethernet Bereich ist ganz einfach definiert. Möchte ein Rechner eine Broadcast-Nachricht an alle Computer im Netzwerk senden, so schreibt dieser seine Nachricht einfach an die Destination MAC-Adresse <em>ff:ff:ff:ff:ff:ff</em>. Diese MAC-Adresse ist standartisiert und wird von jedem Switch verstanden und führt dazu, dass diese Frames dann an jedem Port ausgesandt wird.</p>
+<h4 id="wieso-benotigt-man-broadcast-anfragen">Wieso benötigt man Broadcast-Anfragen</h4>
+<p>Da kann man einfache praktische und in der Praxis verwendete Beispiele verwenden:</p>
+<ul>
+<li>
+<p>Wenn ein Client in einem Netzwerk sich verbindet und gerne per DHCP eine IP-Adresse hätte, müsste der Computer raten oder schon bereits wissen mit welcher MAC-Adresse dieser angesprochen wird. Wenn der Client jedoch einfach eine Broadcast Anfrage mit der Bitte um eine DHCP Adresse macht, kann der DHCP Server ihm die Antwort mit einer neuen IP-Adresse weiterreichen.</p>
+</li>
+<li>
+<p>Hat man einen MAC-Filter auf einem Switch, kann einfach das Gerät identifiziert werden, da jedes Gerät beim Einstieg in ein Netzwerk direkt eine Broadcast-Nachricht an alle Empfänger übermitteln würde.</p>
+</li>
+<li>
+<p>Wenn man die MAC-Adresse eines Geräts kennenlernen möchte in der Broadcast-Domain, kann man ja einfach alle Rechner im Netzwerk fragen wer die IP-Adresse besitzt und bekommt die MAC-Adresse in der Antwort des Empfängergeräts.</p>
+</li>
+</ul>
+<p>Wichtig ist auf jeden Fall zu wissen, dass Broadcast-Anfragen nur von diesem Netzwerkgerät beantwortet werden, welches für diese Anfrage auch zuständig ist. Somit werden nicht unnötigerweise noch Antworten im Netzwerk verschickt, welche schlussendlich überflüssig wären und keinen Nutzen bringen würden.</p>
+<h2 id="was-wenn-ich-meine-broadcast-domane-aufteilen-mochte">Was wenn ich meine Broadcast Domäne aufteilen möchte?</h2>
+<p>Wie schon betont, spannt sich eine Broadcast Domäne über jeden Port auf allen Switches. Doch mit der Einführung von <a href="https://www.ionos.de/digitalguide/server/knowhow/vlan-grundlagen/">VLAN</a>. Mit VLANs lassen sich virtuelle LANs bilden und lässt somit das aufteilen eines physikalischen Netzwerks in mehrere logische Netzwerke. So können auf einem Switch mehrere eigenständige Broadcast-Domänen existieren, welche auf dem selben phyischen Switch nicht miteinander kommunizieren können. Die Technik und der Standard dahinter wurde mit <a href="https://de.wikipedia.org/wiki/IEEE_802.1Q">IEEE 802.1Q</a> umfassend definiert.</p>
+<p>Mit IEEE 802.1Q wurde für das bisherige Ethernetframe ein zusätzliches Feld eingebaut. Der 802.1Q Header, mit 32Bit, wurde nach dem Source-MAC Feld eingefügt und beschreibt folgende Datenfelder:</p>
+<ul>
+<li>Protokoll-ID</li>
+<li>Priorität</li>
+<li>Canonical Format</li>
+<li>VLAN-ID</li>
+</ul>
+<p>Vorallem die Protokoll-ID, die Priorität und die VLAN-ID sind wichtig. Die <em>protocol-id</em> beschreibt den Frame als ein <em>vlan-tagged-frame</em> und so weiss ein Switch, dass in dieser Frame in einem bestimmten VLAN ist. Die Priorität ist ein Feld zur Bestimmung von QoS-Priorisierungsleveln auf einem Frame (siehe <a href="../QoS/">QoS</a>). die letzten 12 Bit benötigen wir um VLAN-IDs zu setzen.</p>
+<p><img alt="802.1Q Header im Ethernet Frame" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Ethernet_802.1Q_Insert.svg/1125px-Ethernet_802.1Q_Insert.svg.png" /></p>
+<p>VLAN-IDs sind die Kennungsziffern von jedem virtuellen Netzwerk und so kann der Switch über die VLAN-ID die Frames in das richtige VLAN übertragen.</p>
+<p>Das Arbeiten mit VLANs ermöglicht uns viele Möglichkeiten ein Netzwerk mit weniger Switches in mehrere Subnetze aufzuteilen. Das Arbeiten mit VLAN-Tagging ermöglicht das gleichzeitige Übertragen von Frames aus mehreren VLANs auf einem Kabel und erspart somit die grössere Kabelungsarbeiten. Das Festlegen von einem fix definierten VLAN für normale Arbeitsgeräte, macht es möglich dass man einzelne Ports als <em>untagged ports</em> definiert und somit nur auf einem spezifischen VLAN sitzt.</p>
+<h3 id="welche-gerate-unterstutzen-vlans">Welche Geräte unterstützen VLANs</h3>
+<ul>
+<li>Managebare Switches unterstützen in der Regel VLAN-Tagging</li>
+<li>Server mit Servernetzwerkschnittstellen müssen auch ein Betriebssystem und die richtigen Treiber besitzen um mit VLAN Informationen klarzukommen (Windows Server, Linux)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c18c5fb9.min.js"></script>
+      
+    
+  </body>
+</html>

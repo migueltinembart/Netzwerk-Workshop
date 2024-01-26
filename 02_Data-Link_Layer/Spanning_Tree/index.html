@@ -1,0 +1,1345 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://netzwerk-workshop.rebsamen.net/02_Data-Link_Layer/Spanning_Tree/">
+      
+      
+        <link rel="prev" href="../QoS/">
+      
+      
+        <link rel="next" href="../WIFI/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.5">
+    
+    
+      
+        <title>Spanning Tree - Netzwerk Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spanning-tree" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Netzwerk Workshop" class="md-header__button md-logo" aria-label="Netzwerk Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Netzwerk Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spanning Tree
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Netzwerk Workshop" class="md-nav__button md-logo" aria-label="Netzwerk Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Netzwerk Workshop
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Willkommen beim Netzwerk-Workshop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    00 Voraussetzungen
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            00 Voraussetzungen
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/01_Text-Editor_installieren/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text-Editor installieren
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/02_Git_installieren/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git instillieren
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Voraussetzungen/03_Putty_installieren/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Putty installieren
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    01 Physical Layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            01 Physical Layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Einleitung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Kupfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kupferübertragungsmedien
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/LWL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LWL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Luft%C3%BCbertragungstechnologien/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Luftübertragungstechnologien
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Netzwerkadapter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netzwerkadapter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_Physical_Layer/Power_over_Ethernet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Power over Ethernet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    02 Data Link Layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            02 Data Link Layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Einleitung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ethernet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ethernet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kapselung/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kapselung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Netzwerkger%C3%A4te/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netzwerkgeräte
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QoS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality of Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Spanning Tree
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Spanning Tree
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formen-von-spanning-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formen von Spanning Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protokolloperation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protokolloperation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Protokolloperation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path cost
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Bridge
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arten-von-ports-in-einem-spanning-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arten von Ports in einem Spanning Tree
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arten von Ports in einem Spanning Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#designated-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designated Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blocked-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blocked Port
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spanning-tree-portzustande" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spanning Tree Portzustände
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ablauf-von-spanning-tree-portstatuswechsel-in-betrieb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ablauf von Spanning Tree Portstatuswechsel in Betrieb
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ablauf von Spanning Tree Portstatuswechsel in Betrieb">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#szenario-1-netzwerkgerat-wird-in-einen-switch-eingesteckt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario 1: Netzwerkgerät wird in einen Switch eingesteckt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#szenario-2-netzwerkswitch-wird-an-einen-anderen-switch-eingesteckt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario 2: Netzwerkswitch wird an einen anderen Switch eingesteckt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WIFI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WIFI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    03 Network Layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            03 Network Layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_Network_Layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network Layer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_Network_Layer/Internet_Protocol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internet Protocol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formen-von-spanning-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formen von Spanning Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protokolloperation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protokolloperation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Protokolloperation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path cost
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Bridge
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arten-von-ports-in-einem-spanning-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arten von Ports in einem Spanning Tree
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arten von Ports in einem Spanning Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#designated-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designated Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blocked-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blocked Port
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spanning-tree-portzustande" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spanning Tree Portzustände
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ablauf-von-spanning-tree-portstatuswechsel-in-betrieb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ablauf von Spanning Tree Portstatuswechsel in Betrieb
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ablauf von Spanning Tree Portstatuswechsel in Betrieb">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#szenario-1-netzwerkgerat-wird-in-einen-switch-eingesteckt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario 1: Netzwerkgerät wird in einen Switch eingesteckt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#szenario-2-netzwerkswitch-wird-an-einen-anderen-switch-eingesteckt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario 2: Netzwerkswitch wird an einen anderen Switch eingesteckt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="spanning-tree">Spanning Tree</h1>
+<p>Spanning Tree ist ein eigenes Protokol zum Austausch von Schleifenbildungen in geswitchten Umgebungen. Das Ziel von Spanning Tree ist es anhand von Gewichts und Stammangaben der Switches einen eindeutigen Pfad du definieren und eventuelle Schleifen im Netzwerk zu identifizieren und sich davor zu schützen. Hauptsächlich aber verwendet man Spanning Tree zur Redundanzabsicherung in einem Netzwerk ohne, dass sogenante Broadcast-Loops entstehen können.</p>
+<p>Ziel von Spanning Tree ist immer den Zustand eines Baumes zu erhalten. Äste auf einem Baum wachsen schliesslich auch nicht zusammen. Wenn ein Loop entdeckt wird, verwendet Spanning Tree einen Mechanismus um den Port auszuschalten und die Baumstruktur intakt sicherstellt.</p>
+<details class="info">
+<summary>Was sind Broadcast Loops</summary>
+<p>Wenn man bei einem Netzwerkswitch von einem Port zum anderen ein Patchkabel einsteckt, entsteht ein Broadcast-Loop. Der Broadcast Loop entsteht weil im ersten Moment wenn ein Netzwerkgerät angeschlossen wird ein, Ethernet-Broadcast Frame ausgesandt wird. Dieses Frame wird an jedem Port ausgesandt, ausser bei dem Port von dem die Broadcastnachricht gesendet wurde. Bei einer Verkettung von Switches wird dies bei jedem Switch auch wiederholt bis diese Broadcast Frames an jedem Port ausgesandt wurde. Bei einem Loop würde dieses Frame auch immer wieder ausgesandt werden, da aus der Sicht des Switches ein neues Broadcast-Frame verschickt wurde und er seiner Aufgabe als Switch nachgehen möchte und diese wieder an alle Ports hinausflutet. Dieses Problem wiederholt sich so lange bis keine weiteren Nachrichten über die Switches mehr ausgesandt werden können und es zu einem Ausfall der Netzwerkkomponenten kommen kann.</p>
+</details>
+<h2 id="basics">Basics</h2>
+<h3 id="formen-von-spanning-tree">Formen von Spanning Tree</h3>
+<p>Spanning Tree gibt es in mehreren Varianten. Meistens werden diese in ihrer Kurzform names STP unter Netzwerkadministratoren ausgetauscht.</p>
+<p>Folgende Formen von STP kann man in der Wildnis antrefen:</p>
+<ul>
+<li>STP (Spanning Tree Protocol)</li>
+<li>RSTP (Rapid Spanning Tree Protocol)</li>
+<li>MSTP (Multiple Spanning Tree Protocol)</li>
+<li>PVST (Per Vlan Spanning Tree - Cisco Proprietär)</li>
+<li>CST (Common Spanning Tree)</li>
+</ul>
+<p>Die meisten Netzwerke verwenden in der Regel eine Form von STP/RSTP oder bei grösseren komplexeren Netzwerken auf der man per VLAN einen eigenen Spanning Tree aufbauen möchte MSTP/PVST</p>
+<h3 id="protokolloperation">Protokolloperation</h3>
+<p>Zwei Wichtige Begriffe sind für Spanning Tree wichtig um zu verstehen was eingestellt werden muss um ein einfaches durch Spanning Tree geschütztes Netzwerk richtig zu implementieren. <strong>Path cost</strong> und <strong>root bridge</strong>. Spanning Tree ist ein eigenes Protokoll, welches in einem Layer-2 Netzwerk Verwendung findet. Spanning Tree versucht immer Loops zu identifizieren, da jeder Port welches mit einem anderen Spanning Tree tauglichen Switch verbunden ist als aller erstes über das Spanning Tree Protokol <strong>BPDUs</strong> aussendet um die root bridge zu definieren. In einer Spanning Tree Landschaft darf es immer nur eine Root Bridge geben. Denn dieser Switch hat als einziger Switch keinen Port, welches über STP ausgeschaltet werden kann.</p>
+<h4 id="path-cost">Path cost</h4>
+<p><img align="right" alt="Kruskal Algorithmus" src="https://he-s3.s3.amazonaws.com/media/uploads/6322896.jpg" width="300" /></p>
+<p>Spanning Tree definierte ein paar Regeln für den sauberen Aufbau eines Spanning Tree. Jeder Switchport hat Kosten hinterlegt, die sogenannte Path cost. Die Kosten werden anhand der Geschwindigkeit des Ports meist automatisch errechnet, können aber auch selber definiert werden. In der Regel teil man die Kosten nach der Geschwindigkeit des Ports auf, so nach der Regel umso länger und beschwerlich der Weg, umso mehr Kosten entstehen auf dem Weg. Somit müsste ja der schnellste Weg, der kürzere und Kostenunaufwendigere Weg dafür genutzt werden. Mit der Kostendefinition von Ports können somit Kalkulationen erstellt werden um den kürzesten Weg zu einer RootBridge herstellen zu können. hier mal ein Beispiel mit dem Kruskal Algorithmus wie die Kosten Einfluss auf ein Spanning Tree haben kann:</p>
+<p>In diesem Beispiel sieht man wie alle Knoten miteinander verbunden sind. Alle Knotenverbindungen definieren ihre Kosten mit einer Zahl, dabei spielt die Distanz zu den anderen Knoten hier überhaupt keine Rolle. Nun sollten alle Knoten über den günstigsten Weg miteinander verbunden werden. So können wir eine gespannte Baumstruktur zwischen allen Knotenpunkten herstellen. Bei Spanning Tree würden somit nur die Leitungen aktiv erhalten bleiben welche für eine <em>nicht-kreisförmige</em> Konstellation benötigt werden.</p>
+<p>Die IEEE standardisierte die Pfadkosten für Ports anhand der Übertragungsgeschwindigkeiten. Schnellere Ports kosten weniger, langsame Ports kosten mehr. Hier eine Abbildung der von der IEEE802.X definierten Path Cost:</p>
+<table>
+<thead>
+<tr>
+<th>Bandbreite</th>
+<th>Originale STP Kosten IEEE802.1D</th>
+<th>Neue STP Kosten IEEE802.1w</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4 Mbit/s</td>
+<td>250</td>
+<td>5'000'000</td>
+</tr>
+<tr>
+<td>10 Mbit/s</td>
+<td>100</td>
+<td>2'000'000</td>
+</tr>
+<tr>
+<td>16 Mbit/s</td>
+<td>62</td>
+<td>1'250'000</td>
+</tr>
+<tr>
+<td>100 Mbit/s</td>
+<td>19</td>
+<td>200'000</td>
+</tr>
+<tr>
+<td>1 Gbit/s</td>
+<td>4</td>
+<td>20'000</td>
+</tr>
+<tr>
+<td>2 Gbit/s</td>
+<td>3</td>
+<td>10'000</td>
+</tr>
+<tr>
+<td>10 Gbit/s</td>
+<td>2</td>
+<td>2'000</td>
+</tr>
+<tr>
+<td>100 Gbit/s</td>
+<td>N/A</td>
+<td>200</td>
+</tr>
+<tr>
+<td>1Tbit/s</td>
+<td>N/A</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>Beachte die alten Definitionen der Kosten gegenüber den Neuen Definitionen. Dies sind nur Vorgaben von IEEE und können auf jeden Fall für jeden Port angepasst werden um allenfalls die Baumkonstelation selbst anzupassen.</p>
+<h4 id="root-bridge">Root Bridge</h4>
+<p><img align="right" alt="Rood Bridgke Konfiguration" src="https://www.prosec-networks.com/wp-content/uploads/2021/08/PSN_KB_spanning_tree.jpg" width="400" /></p>
+<p>Die Root Bridge in einer Spanning Tree Konstellation ist der Switch mit der kleinsten Bridge ID. Die Bridge ID ein 8-Byte grosses Feld in einem BPDU Frame und wird aufgebaut aus der Priorität und der Mac-Adresse eines Switches. Die Root Bridge dient als Referenzpunk für alle anderen im Spanning Tree angeschlossenen Switches und dient als zentraler Ausgangspunkt eines Spanning Tree. Als einziger Switch in der Baumstruktur kann bei der Root Bridge kein Port mittels STP augeschaltet werden um die Redundanz sicherzustellen, ausser natürlich bei einem internet Loop. Eine Root Bridge wird in einem spanning tree Netzwerk mit einem Verfahren ermittelt. Die Root Bridge kann im Auschlussverfahren so definiert werden:</p>
+<ol>
+<li>Hat der Switch die kleinste Priorität (4096), dann ist dieser Switch automatisch die Root Bridge in einem Spanning Tree</li>
+<li>Falls &gt;2 Switches die kleinste Priorität aufweisen, dann ist der Switch mit der kleinsten Priorität und der kleinsten MAC-Adresse die Root Bridge</li>
+</ol>
+<h4 id="arten-von-ports-in-einem-spanning-tree">Arten von Ports in einem Spanning Tree</h4>
+<p>Um zu verstehen wie die Switches in einer Spanning Tree Konstellation die auschzuschaltenden Ports definieren, müssen folgende Portdefinitionen erklärt werden:</p>
+<ul>
+<li>Designated Port</li>
+<li>Root Port</li>
+<li>Blocked Port</li>
+</ul>
+<h5 id="designated-port">Designated Port</h5>
+<p>Dem designated Port ist es erlaubt Daten mit anderen Switches auszutauschen Frames weiterzuleiten. In einer Root Bridge sind alle Ports designated Ports und kann im Normalfall auch nicht geändert werden.</p>
+<h5 id="root-port">Root Port</h5>
+<p>Ein Root Port ist der Anschluss welches in Richtung einer Root Bridge geführt ist. Ein Root Port ist somit immer mit einem Designated Port verbunden. Der Zustand eines Root Ports startet immer in einem Listening State</p>
+<h5 id="blocked-port">Blocked Port</h5>
+<p>Ein Port welches nach der Spanning Tree Toplogie nicht für eine Verbindung vorgesehen ist. BPDUs werden immer noch ausgetausch, jedoch keine Nutzdaten. Ein Blocked Port ist wie der Root Port auch mit einem Designated Port verbunden.</p>
+<h4 id="spanning-tree-portzustande">Spanning Tree Portzustände</h4>
+<p>In einem Spanning Tree sind potenzielle Schleifen nicht gleich komplett ausgeschaltet. Sie übermitteln aber keine Nutzdaten wie Ethernet Frames. Dabei tauschen alle Ports weiterhin BPDUs, welche den aktuellen Zustand von benachbarten Switches anhand von Statusveränderungen verstehen kann. Ein Port kann folgende Zustände haben:</p>
+<table>
+<thead>
+<tr>
+<th>Zustand des Ports</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disabled</td>
+<td>Verwirft Frames, lernt keine Adressen, empfängt und verarbeitet keine BPDUs</td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td>Verwirft Frames, lernt keine Adressen, empfängt und verarbeitet BPDUs</td>
+</tr>
+<tr>
+<td>Listening</td>
+<td>Verwirft Frames, lernt keine Adressen, empfängt, verarbeitet und sendet BPDUs</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>Verwirft Frames, lernt Adressen, empfängt, verarbeitet und sendet BPDUs</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>Leitet Frames weiter, lernt Adressen, empfängt, verarbeitet und sendet BPDUs</td>
+</tr>
+</tbody>
+</table>
+<p>Die Zustände <em>Blocking</em>, <em>Listening</em>, <em>Learning</em> sind Zustände von blocked Ports. Ports welche inaktiv sind in der Regel blocking. Wird ein Port aktiv, durchläuft dieser Port alle Zustände bis zum Forwarding Zustand, Wird aber ein Loop erkannt bleibt dieser Port automatisch im <em>Blocking</em> Zustand und empfängt nur noch BPDUs zur Erkennung von Änderungen an der Konstellation.</p>
+<h2 id="ablauf-von-spanning-tree-portstatuswechsel-in-betrieb">Ablauf von Spanning Tree Portstatuswechsel in Betrieb</h2>
+<p>Es werden 2 Szenarien erklärt um die Wechsel der Zustände verstehen zu können und somit feststellen zu können wie Spanning Tree funktioniert.</p>
+<h3 id="szenario-1-netzwerkgerat-wird-in-einen-switch-eingesteckt">Szenario 1: Netzwerkgerät wird in einen Switch eingesteckt</h3>
+<p>Wenn ein Netzwerkgerät an einen Switch mit Spanning Tree geknüpft wird, durchläuft der Port die oben beschriebenenen Zustände. Der Port startet von Anfang an im <em>Blocking</em> State und versucht BPDUs zu empfangen, werden als erstes keine BPDUs empfangen, versucht der Port in den <em>Listening</em> State überzugehen und sendet eigene BPDUs mit Feldern Priorität und Bridge ID. Falls auch dann keine Antwort in Form von BPDUs zurückkommt geht der Port in den <em>Learning</em> State über und empfängt die Mac-Adresse des Geräts und bei Erfolg wird der Port in den Forwarding Zustand gehoben. Das Endgerät kann nun im Netzwerk kommunizieren und Broadcasts verschicken.</p>
+<h3 id="szenario-2-netzwerkswitch-wird-an-einen-anderen-switch-eingesteckt">Szenario 2: Netzwerkswitch wird an einen anderen Switch eingesteckt</h3>
+<p>Wenn 2 mit Spanning Tree konfigurierten Switches miteinander verbunden ändert sich die ganze Spanning Tree von alleine und durchläuft mehrere Schritte um den Spanning Tree aufrecht zu halten.</p>
+<p>Beide Switches nehmen zuerst an sie seien die Root Bridge solange bis sie miteinander verbunden werden. Bei beiden Switches starten die entsprechenden Ports im <em>Blocking</em> Zustand und danach in den Listening Zustand. Nun übertragen beide Switches ihre Bridge ID und können nun anhand des <a href="#root-bridge">oben</a> gennanten Verfahrens ausmachen welcher Switch nun die Root Bridge ist. Nachdem die Root Bridge auserwählt wurde, wird automatisch der Port an der Root Bridge zu einem Designated Port und der Port der nicht-Root Bridge zu einem Root Port. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c18c5fb9.min.js"></script>
+      
+    
+  </body>
+</html>

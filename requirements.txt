@@ -1,5 +1,0 @@
-
-mkdocs==1.5.3
-mkdocs-material==9.5.5
-mkdocs-callouts==1.10.0
-mkdocs-badges==0.4.2
